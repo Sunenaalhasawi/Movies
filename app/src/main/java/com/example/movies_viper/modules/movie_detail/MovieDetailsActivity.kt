@@ -61,13 +61,13 @@ class MovieDetailsActivity : AppCompatActivity(), DetailContract.View {
         Glide.with(this)
             .load(IMAGE_BASE_URL + movie.backdropPath)
             .transform(CenterCrop())
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(movieDetailBinding.movieBackdrop)
 
         Glide.with(this)
             .load(IMAGE_BASE_URL + movie.posterPath)
             .transform(CenterCrop())
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(movieDetailBinding.moviePoster)
 
         movieDetailBinding.movieTitle.text = movie.title

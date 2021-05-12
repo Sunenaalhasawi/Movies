@@ -15,7 +15,7 @@ import com.example.movies_viper.model.Movie
  */
 class MovieListAdapter(
     private var movies: MutableList<Movie>,
-    private val listener: MovieListener
+    private val listener: MovieListener,
 ) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
@@ -28,10 +28,10 @@ class MovieListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val imagePath = IMAGE_BASE_URL + movies.get(position).posterPath
+        val imagePath = IMAGE_BASE_URL + movies.get(position).posterPath;
         Glide.with(context)
             .load(imagePath)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.binding.itemMoviePoster)
         holder.itemView.setOnClickListener { listener.onItemClick(movies[position]) }
     }

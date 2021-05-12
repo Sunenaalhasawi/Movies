@@ -54,14 +54,14 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
      * Function to show loading indicator
      */
     override fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.cvProgressbar.visibility = View.VISIBLE
     }
 
     /**
      * Function to hide loading indicator
      */
     override fun hideLoading() {
-        binding.progressBar.visibility = View.GONE
+        binding.cvProgressbar.visibility = View.GONE
         initialFetching = false
     }
 
@@ -122,7 +122,7 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
         */
         popularMoviesLayoutMgr =
             LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
-        binding.recyclerviewPopularMovies.layoutManager = popularMoviesLayoutMgr
+        binding.layoutMovies.recyclerviewPopularMovies.layoutManager = popularMoviesLayoutMgr
         // Setting up popular movie adapter
         popularMoviesAdapter =
             MovieListAdapter(mutableListOf(), object : MovieListAdapter.MovieListener {
@@ -130,14 +130,14 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
                     presenter.onItemClicked(movie)
                 }
             })
-        binding.recyclerviewPopularMovies.adapter = popularMoviesAdapter
+        binding.layoutMovies.recyclerviewPopularMovies.adapter = popularMoviesAdapter
 
         /*
        Setting top rated recylcerview layout manager
         */
         topRatedMoviesLayoutMgr =
             LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
-        binding.recyclerViewTopRated.layoutManager = topRatedMoviesLayoutMgr
+        binding.layoutMovies.recyclerViewTopRated.layoutManager = topRatedMoviesLayoutMgr
 
         // Setting up toprated movie adapter
         topRatedMoviesAdapter =
@@ -146,14 +146,14 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
                     presenter.onItemClicked(movie)
                 }
             })
-        binding.recyclerViewTopRated.adapter = topRatedMoviesAdapter
+        binding.layoutMovies.recyclerViewTopRated.adapter = topRatedMoviesAdapter
 
         /*
         Setting upcoming recylcerview layout manager
         */
         upcomingMoviesLayoutMgr =
             LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
-        binding.recyclerviewUpcoming.layoutManager = upcomingMoviesLayoutMgr
+        binding.layoutMovies.recyclerviewUpcoming.layoutManager = upcomingMoviesLayoutMgr
 
         // Setting up upcoming movie adapter
         upcomingMoviesAdapter =
@@ -162,7 +162,7 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
                     presenter.onItemClicked(movie)
                 }
             })
-        binding.recyclerviewUpcoming.adapter = upcomingMoviesAdapter
+        binding.layoutMovies.recyclerviewUpcoming.adapter = upcomingMoviesAdapter
 
     }
 
@@ -171,7 +171,7 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
      * Populates Popular movie recylerview
      */
     private fun attachPopularMoviesOnScrollListener() {
-        binding.recyclerviewPopularMovies.addOnScrollListener(object :
+        binding.layoutMovies.recyclerviewPopularMovies.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val totalItemCount = popularMoviesLayoutMgr.itemCount
@@ -179,7 +179,7 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
                 val firstVisibleItem = popularMoviesLayoutMgr.findFirstVisibleItemPosition()
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
-                    binding.recyclerviewPopularMovies.removeOnScrollListener(this)
+                    binding.layoutMovies.recyclerviewPopularMovies.removeOnScrollListener(this)
                     popularMoviesPage++
                     presenter.onPopularMovieViewCreated(popularMoviesPage, initialFetching)
                 }
@@ -192,14 +192,15 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
      * Populates Top rated movie recylerview
      */
     private fun attachTopRatedOnScrollListener() {
-        binding.recyclerViewTopRated.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.layoutMovies.recyclerViewTopRated.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val totalItemCount = topRatedMoviesLayoutMgr.itemCount
                 val visibleItemCount = topRatedMoviesLayoutMgr.childCount
                 val firstVisibleItem = topRatedMoviesLayoutMgr.findFirstVisibleItemPosition()
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
-                    binding.recyclerViewTopRated.removeOnScrollListener(this)
+                    binding.layoutMovies.recyclerViewTopRated.removeOnScrollListener(this)
                     topRatedMoviesPage++
                     presenter.onTopRatedViewCreated(topRatedMoviesPage, initialFetching)
                 }
@@ -212,14 +213,15 @@ class MoviesListActivity : AppCompatActivity(), MovieListContract.View {
      * Populates Upcoming movie recylerview
      */
     private fun attachUpcomingOnScrollListener() {
-        binding.recyclerviewUpcoming.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.layoutMovies.recyclerviewUpcoming.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val totalItemCount = upcomingMoviesLayoutMgr.itemCount
                 val visibleItemCount = upcomingMoviesLayoutMgr.childCount
                 val firstVisibleItem = upcomingMoviesLayoutMgr.findFirstVisibleItemPosition()
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
-                    binding.recyclerviewUpcoming.removeOnScrollListener(this)
+                    binding.layoutMovies.recyclerviewUpcoming.removeOnScrollListener(this)
                     upcomingMoviesPage++
                     presenter.onUpcomingViewCreated(upcomingMoviesPage, initialFetching)
                 }
